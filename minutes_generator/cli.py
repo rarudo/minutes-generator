@@ -35,10 +35,12 @@ def main(argv=None):
     # -----------------------------------------------------------
     # 1) API キー読み込み & クライアント初期化
     # -----------------------------------------------------------
-    load_dotenv()
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
-        sys.exit("ERROR: .env に GOOGLE_API_KEY が見つかりません")
+        load_dotenv()
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            sys.exit("ERROR: .env に GOOGLE_API_KEY が見つかりません")
 
     client = genai.Client(api_key=api_key)
     model_id = "gemini-2.5-flash-preview-05-20"
